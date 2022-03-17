@@ -1,27 +1,21 @@
 
+
 <script>
-	import Listing from './components/listing.svelte';
-	import Profile from './components/profile.svelte';
-	export let name;
+	import { Router, Link, Route } from 'svelte-navigator';
+	import Dating from './pages/dating.svelte';
+	import Home from './pages/home.svelte';
+	import Team from './pages/team.svelte';
 </script>
 
-<main>
-	<h1 class="text-3xl">Welcome to {name}!</h1>
-	<a href="." class="tag red">UI/UX Design</a>
-	<a href="/" class="tag yellow">Enthusiasm</a>
-	<a href="/" class="tag green">Ambition</a>
-	<br />
-	<a href="/" class="tag blue">User Experience research</a>
-	<span class="inline-block w-20 border border-black"></span><span class="font-abeezee">PEOPLE FOR YOU</span>
-	<div class="flex flex-row">
-		<div>
-			<Listing major="Information" name="Eric The Builder" redTag="UI/UX Design" yellowTag="Enthusiasm" greenTag="Ambition" blueTag="User experience research" profile="user06a.svg" />
-			<Listing major="Computer Science & Data Science" name="Bob Fretz" redTag="Advertising" yellowTag="Fashion" greenTag="Social Psychology" blueTag="Teaching" profile="user02c.svg" />
-		</div>
-		<Profile />
-	</div>
-	
-</main>
+<Router>
+	<header class="ml-10 mt-10 text-navy mb-10">
+		<img class="inline-block w-32 mr-2" src="/umlogo.svg" alt="U of M Logo">
+		<h1 class="text-2xl inline-block font-adamina">P/ALA 223</h1>
+	</header>
+	<Route path="/" component={Home} />
+	<Route path="/dating" component={Dating} />
+	<Route path="/team" component={Team} />
+</Router>
 
 <style global lang="postcss">
 	@tailwind base;
@@ -45,5 +39,4 @@
 		}
 	}
 
-	
 </style>

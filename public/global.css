@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=ABeeZee&family=Adamina&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&family=Adamina&family=Poppins:wght@300;400;600;700&display=swap');
 html, body {
-	background-color: #E5E5E5;
+	background-color: #F7F9FB; 
 }
 /*html, body {
 	position: relative;

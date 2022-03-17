@@ -6,7 +6,9 @@ module.exports = {
       fontFamily: {
         'inter': ['Inter', 'Helvetica', 'sans-serif'],
         'adamina': ['Adamina', 'serif'],
-        'abeezee': [ 'ABeeZee', 'Inter', 'sans-serif']
+        'abeezee': [ 'ABeeZee', 'Inter', 'sans-serif'],
+        'roboto': ['Roboto','sans-serif'],
+        'poppins':['Poppins', 'Inter', 'sans-serif']
       },
       fontSize: {
         'xxs': '0.625rem'
@@ -24,9 +26,16 @@ module.exports = {
         'bluetag': '#F7F5FF',
         'blueborder': '#BCB0F5',
         'bluetext': '#3B25A9',
-        'navy': '#00274C'
+        'navy': '#00274C',
+        'dating-icon': '#E84393',
+        'team-icon':'#1976D2',
+        'profile-icon': '#A51BC8',
+        'gray-1':'#333333',
+        'gray-2':'#4f4f4f',
+        'gray-3':'#828282'
       } 
     }
   },
+  safelist: ['bg-dating-icon', 'bg-team-icon', 'bg-profile-icon'],
   plugins: []
 };
