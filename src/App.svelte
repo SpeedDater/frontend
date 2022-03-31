@@ -1,20 +1,30 @@
 
 
 <script>
-	import { Router, Link, Route } from 'svelte-navigator';
+	export let name;
+
+	import { Router, Route } from 'svelte-navigator';
+	import PrivateRoute from './components/privateRoute.svelte';
 	import Dating from './pages/dating.svelte';
 	import Home from './pages/home.svelte';
 	import Team from './pages/team.svelte';
+	import Login from './pages/login.svelte';
+	import Header from './components/header.svelte';
+	import LoginComplete from './pages/logincomplete.svelte';
+	import { user } from './stores/auth.js';
 </script>
 
 <Router>
-	<header class="ml-10 mt-10 text-navy mb-10">
-		<img class="inline-block w-32 mr-2" src="/umlogo.svg" alt="U of M Logo">
-		<h1 class="text-2xl inline-block font-adamina">P/ALA 223</h1>
-	</header>
-	<Route path="/" component={Home} />
+	<Header />
+	<!-- <Route path="/" component={Home} />
 	<Route path="/dating" component={Dating} />
-	<Route path="/team" component={Team} />
+	<Route path="/team" component={Team} /> -->
+	<Route path="/login" component={Login} />
+	<Route path="/login/complete/" component={LoginComplete} />
+	<PrivateRoute path="/"> <Home /> </PrivateRoute>
+	<PrivateRoute path="/dating"> <Dating /> </PrivateRoute>
+	<PrivateRoute path="/team"> <Team /> </PrivateRoute>
+	{ $user }
 </Router>
 
 <style global lang="postcss">
