@@ -5,13 +5,6 @@
 </script>
 
 <main>
-	<h1 class="text-3xl">Welcome to SpeedDater.app!</h1>
-	<a href="." class="tag red">UI/UX Design</a>
-	<a href="/" class="tag yellow">Enthusiasm</a>
-	<a href="/" class="tag green">Ambition</a>
-	<br />
-	<a href="/" class="tag blue">User Experience research</a>
-	
 	<div class="flex flex-row">
 		<div>
 			<div class="flex items-center gap-1 justify-center">
