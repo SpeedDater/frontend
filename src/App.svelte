@@ -12,7 +12,6 @@
 	import Header from './components/header.svelte';
 	import LoginComplete from './pages/logincomplete.svelte';
 	import Logout from './pages/logout.svelte';
-	import { user } from './stores/auth.js';
 </script>
 
 <Router>
@@ -26,7 +25,6 @@
 	<PrivateRoute path="/"> <Home /> </PrivateRoute>
 	<PrivateRoute path="/dating"> <Dating /> </PrivateRoute>
 	<PrivateRoute path="/team"> <Team /> </PrivateRoute>
-	{ $user }
 </Router>
 
 <style global lang="postcss">
