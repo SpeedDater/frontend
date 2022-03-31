@@ -1,6 +1,9 @@
 <script>
-    import { user } from "../stores/auth.js";
-    fetch('https://speeddater-api.chrisx.xyz/rest-auth/logout/',{
+    import { user, apiURL } from "../stores/auth.js";
+    import { useNavigate, useLocation } from "svelte-navigator";
+    const navigate = useNavigate();
+    const location = useLocation();
+    fetch($apiURL + '/rest-auth/logout/',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -8,5 +11,9 @@
         }
     }).then(res => {
         $user = null;
+        navigate('/login',{
+            state: { from: $location.pathname },
+            replace: true
+        });
     });
 </script>
