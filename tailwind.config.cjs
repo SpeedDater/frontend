@@ -33,7 +33,8 @@ module.exports = {
         'gray-1':'#333333',
         'gray-2':'#4f4f4f',
         'gray-3':'#828282',
-        'gray-4':'#BDBDBD'
+        'gray-4':'#BDBDBD',
+        'yellowbutton':'#FFCB05'
       } 
     }
   },
