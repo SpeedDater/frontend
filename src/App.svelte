@@ -11,6 +11,7 @@
 	import Login from './pages/login.svelte';
 	import Header from './components/header.svelte';
 	import LoginComplete from './pages/logincomplete.svelte';
+	import Logout from './pages/logout.svelte';
 	import { user } from './stores/auth.js';
 </script>
 
@@ -19,6 +20,7 @@
 	<!-- <Route path="/" component={Home} />
 	<Route path="/dating" component={Dating} />
 	<Route path="/team" component={Team} /> -->
+	<Route path="/logout" component={Logout}/>
 	<Route path="/login" component={Login} />
 	<Route path="/login/complete/" component={LoginComplete} />
 	<PrivateRoute path="/"> <Home /> </PrivateRoute>
