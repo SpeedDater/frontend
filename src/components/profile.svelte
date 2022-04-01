@@ -39,7 +39,7 @@
     <!-- Break -->
 
     <!-- Second Section -->
-    <div class="bg-navy rounded-md shadow px-12 py-4 text-sm">
+    <div class="bg-navy rounded-md shadow px-12 py-4 text-sm space-y-4">
         <p>What I am Looking For: {profile.looking_for}</p>
         <p>Anything Else: {profile.anything_else} </p>
     </div>
