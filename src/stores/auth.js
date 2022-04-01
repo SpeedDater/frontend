@@ -57,10 +57,22 @@ export const getProfile = async (userId) => {
                 'Authorization': 'Bearer ' + localStorage.getItem('token') 
             }
         });
-        if(!resMajor.ok) throw new Error(profile);
+        if(!resMajor.ok) throw new Error(profile); //fix this, should not be profile
         majors.push((await resMajor.json()).major);
     }
    
     profile.majors = majors;
+    let skills = [];
+    for(const skill of profile.skills) {
+        const resSkill = await fetch(`https://speeddater-api.chrisx.xyz/skills/${skill}/`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token') 
+            }
+        });
+        if(!resSkill.ok) throw new Error(profile); //fix this should not be profile
+        skills.push((await resSkill.json()).skill);
+    }
+    profile.skills = skills;
     return profile;
 }
