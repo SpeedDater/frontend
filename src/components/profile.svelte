@@ -1,20 +1,41 @@
 <script>
     import { apiUser } from "../stores/auth.js";
+    import { getProfile } from "../stores/auth.js";
+    let promise = getProfile(3).then(profile => console.log(profile));
+    const colors = ["red", "blue", "green", "yellow"];
 </script>
-  <div class="grow font-abeezee p-14 bg-white mt-6 rounded-md text-white mx-4">
+  <div class="font-abeezee p-14 bg-white mt-6 rounded-md text-white mx-4 hidden sm:block">
     <!-- First Section -->
-    <div class="bg-navy hidden sm:block rounded-md h-full">
-        <img class="w-24 transform -translate-y-1/4 -translate-x-1/4" src="/user02c.svg" alt="profile pic">
+    {#await getProfile($apiUser.pk)}
+    Loading...
+    {:then profile}
+    <div class="bg-navy rounded-md h-full shadow pb-4 flex flex-row pr-4">
+        <img class="absolute shadow-md rounded-full inline-block w-24 transform -translate-y-3.5 -translate-x-3.5" src="/user02c.svg" alt="profile pic">
         <!-- name -->
-        <div class="text-white text-2xl font-roboto">{ `${$apiUser.first_name} ${$apiUser.last_name}`}</div>
-        <div class="flex flex-row px-2">
-            <div class="">
-                <div class="text-white">{$apiUser.email}</div>
-                <div>(123) 456-7890</div>
+        <div class="ml-24 mt-8 space-y-4">
+            <div class="inline-block text-white text-4xl font-roboto">{ `${$apiUser.first_name} ${$apiUser.last_name}`}</div>
+            <div class="flex flex-wrap">
+                <div class="">
+                    <div class="text-white">{$apiUser.email}</div>
+                    <div>{profile.phone}</div>
+                </div>
+                <a class="shrink-0 self-center lg:ml-6 inline-block text-center px-4 xl:px-8 py-1.5 xl:py-2 bg-yellowbutton rounded-md font-roboto italic font-bold" href=".">Send Email</a>
+                
             </div>
-            <a class="self-center mr-0 ml-auto inline-block text-center px-4 py-2 bg-yellowbutton rounded-sm font-roboto italic font-bold" href=".">Send Email</a>
-            
+            <div>
+                <p>Major:
+                    {profile.majors.join(", ")}
+                </p>
+                <p>My Section: {profile.current_section} </p>
+                <p>Availability: {profile.availability[0]}</p>
+            </div>
+            <div>
+                {#each profile.skills as skill, index}
+                    <a href="." class="tag {colors[index % 4]} mr-1">{skill}</a>
+                {/each}
+            </div>
         </div>
+        
         
         
        
@@ -27,4 +48,7 @@
     <div>
 
     </div>
+    {:catch error}
+        Error
+    {/await}
 </div>
