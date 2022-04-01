@@ -7,7 +7,7 @@
     export let blueTag;
     export let profile;
 </script>
-<div class="max-w-xl flex flex-row gap-6 p-2 relative rounded-md shadow-xs mb-1 mx-1 sm:mb-2 sm:ml-2 bg-white cursor-pointer">
+<div class="max-w-2xl flex flex-row gap-6 p-2 relative rounded-md shadow-xs mb-1 mx-1 sm:mb-2 sm:ml-2 bg-white cursor-pointer">
     <img src="/{profile}" class="shrink-0 ml-2 self-center rounded-full w-10 h-10 sm:w-16 sm:h-16 md:w-16 md:h-16 bg-black" alt="">
     <div class="flex flex-col gap-2">
         <div class="flex-row flex gap-1 grow justify-between">
