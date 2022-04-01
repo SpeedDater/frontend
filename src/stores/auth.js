@@ -18,7 +18,7 @@ user.subscribe(async value => {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + value
-        }
+        },
     });
     const user = await res.json();
     apiUser.set(user);
@@ -26,3 +26,41 @@ user.subscribe(async value => {
 export const clientID = readable("370562730007-nsmbvtmu29a0nuutont40b1g9jvgr2m6.apps.googleusercontent.com");
 export const apiURL = readable('https://speeddater-api.chrisx.xyz');
 export const apiUser = writable({});
+// apiUser.subscribe(async value => {
+//     const res = await fetch('https://speeddater-api.chris.xyz/profiles/user/', {
+//         headers: { 
+//             'Content-Type': 'application/json',
+//             'Accept': 'application/json',
+//             'Authorization': 'Bearer ' + storage.getItem('token') 
+//         }
+//     });
+//     const profile = await res.json();
+//     apiProfile.set(profile);
+// })
+// export const apiProfile = writable({});
+
+export const getProfile = async (userId) => {
+    const resProf = await fetch(`https://speeddater-api.chrisx.xyz/profiles/${userId}/`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token') 
+        }
+    });
+    if(!resProf.ok) throw new Error(profile);
+    const profile = await resProf.json();
+    let majors = [];
+    console.log(profile.majors);
+    for(const major of profile.majors) {
+        const resMajor = await fetch(`https://speeddater-api.chrisx.xyz/majors/${major}/`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token') 
+            }
+        });
+        if(!resMajor.ok) throw new Error(profile);
+        majors.push((await resMajor.json()).major);
+    }
+   
+    profile.majors = majors;
+    return profile;
+}
