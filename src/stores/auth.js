@@ -1,5 +1,49 @@
 import { writable, readable } from 'svelte/store';
 
+const api = 'https://speeddater-api.chrisx.xyz/';
+let majors = [];
+const getMajorsAPI = async () => { 
+    const bruh = await fetch(api + 'majors/', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+    })
+    const bruhObj = await bruh.json();
+    let bruhArr = [];
+    for(const maj in bruhObj) {
+        bruhArr.push(bruhObj[maj].major)
+    }
+    return bruhArr;
+}
+const getMajorInit =  async () => {
+    majors = localStorage.getItem('token') != "null" ? await getMajorsAPI() : [];
+    console.log(majors);
+}
+getMajorInit();
+
+let skills = [];
+
+const getSkillsAPI = async () => {
+    const bruh = await fetch(api + 'skills/', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+    })
+    const bruhObj = await bruh.json();
+    let bruhArr = [];
+    for(const skil in bruhObj) {
+        bruhArr.push(bruhObj[skil].skill);
+    }
+    return bruhArr;
+}
+const getSkillsInit =  async () => {
+    skills = localStorage.getItem('token') != "null" ? await getSkillsAPI() : [];
+    console.log(skills);
+}
+getSkillsInit();
+
 // TODO: Change to token
 export const user = writable(localStorage.getItem('token'));
 user.subscribe(async value => {
@@ -59,31 +103,44 @@ export const getProfile = async (userId) => {
     });
     if(!resProf.ok) throw new Error(profile);
     const profile = await resProf.json();
-    let majors = [];
-    console.log(profile.majors);
-    for(const major of profile.majors) {
-        const resMajor = await fetch(`https://speeddater-api.chrisx.xyz/majors/${major}/`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token') 
-            }
-        });
-        if(!resMajor.ok) throw new Error(profile); //fix this, should not be profile
-        majors.push((await resMajor.json()).major);
-    }
    
-    profile.majors = majors;
-    let skills = [];
-    for(const skill of profile.skills) {
-        const resSkill = await fetch(`https://speeddater-api.chrisx.xyz/skills/${skill}/`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token') 
-            }
-        });
-        if(!resSkill.ok) throw new Error(profile); //fix this should not be profile
-        skills.push((await resSkill.json()).skill);
-    }
-    profile.skills = skills;
+    console.log(profile.majors);
+    profile.majors = getProfileMajors(profile);
+   
+    profile.skills = getProfileSkills(profile);
+    
     return profile;
+}
+
+const getProfileMajors = (prof) => {
+    let strMajors = [];
+
+    console.log(prof);
+    for(let major of prof.majors) {
+        console.log(majors[major]);
+        try {
+            strMajors.push(majors[major - 1]);
+        }
+        catch(error) {
+            console.log(new Error(error));
+            return new Error(error);
+        }
+    }
+    return strMajors;
+}
+
+const getProfileSkills = prof => {
+    let strSkills = [];
+    
+    for(let skill of prof.skills) {
+        console.log(skills[skill]);
+        try {
+            strSkills.push(skills[skill - 1]);
+        }
+        catch(error) {
+            console.log(new Error(error));
+            return new Error(error);
+        }
+    }
+    return strSkills;
 }
