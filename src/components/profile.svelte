@@ -3,13 +3,13 @@
     import { getProfile } from "../stores/auth.js";
     // let promise = getProfile(3).then(profile => console.log(profile));
     const colors = ["red", "blue", "green", "yellow"];
+
 </script>
   <div class="max-w-3xl font-abeezee p-14 bg-white mt-6 rounded-md text-white mx-4 hidden sm:block space-y-4">
     <!-- First Section -->
     {#await getProfile($apiUser.id)}
-        <div>Loading this page...</div>
+        <div class="text-black">Loading this page...</div>
     {:then profile}
-    {$apiUser.profile_pic}
     <div class="bg-navy rounded-md shadow pb-4 flex flex-row pr-4">
         <img class="absolute shadow-md rounded-full inline-block w-24 transform -translate-y-3.5 -translate-x-3.5" src={$apiUser.profile_picture} alt="profile pic">
         <!-- name -->
