@@ -20,8 +20,19 @@ user.subscribe(async value => {
             'Authorization': 'Bearer ' + value
         },
     });
-    const user = await res.json();
+    // if(!res.ok) new Error(res);
+    let user = await res.json();
+    if(!res.ok) return new Error(user);
+    const picRes = await fetch(`https://speeddater-api.chrisx.xyz/users/${user.pk}/`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + value
+        },
+    });
+    user = await picRes.json();
     apiUser.set(user);
+    console.log(user);
 })
 export const clientID = readable("370562730007-nsmbvtmu29a0nuutont40b1g9jvgr2m6.apps.googleusercontent.com");
 export const apiURL = readable('https://speeddater-api.chrisx.xyz');
