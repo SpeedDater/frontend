@@ -1,6 +1,7 @@
 import { writable, readable } from 'svelte/store';
 
 const api = 'https://speeddater-api.chrisx.xyz/';
+let state = 0;
 let majors = [];
 const getMajorsAPI = async () => { 
     const bruh = await fetch(api + 'majors/', {
@@ -18,7 +19,9 @@ const getMajorsAPI = async () => {
 }
 const getMajorInit =  async () => {
     majors = localStorage.getItem('token') != "null" ? await getMajorsAPI() : [];
-    console.log(majors);
+    // console.log(majors);
+    console.log(majors.length);
+    majors.length ? state++ : null;
 }
 getMajorInit();
 
@@ -34,15 +37,27 @@ const getSkillsAPI = async () => {
     const bruhObj = await bruh.json();
     let bruhArr = [];
     for(const skil in bruhObj) {
-        bruhArr.push(bruhObj[skil].skill);
+        bruhArr[bruhObj[skil].id] = (bruhObj[skil].skill);
     }
+    // console.log(bruhArr);
     return bruhArr;
 }
 const getSkillsInit =  async () => {
     skills = localStorage.getItem('token') != "null" ? await getSkillsAPI() : [];
-    console.log(skills);
+    // console.log(skills);
+    console.log(skills.length)
+    skills.length ? state++ : null;
 }
 getSkillsInit();
+
+const getSectionsAPI = async () => {
+    const bruh = await fetch(api + 'skills/', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+    })
+}
 
 // TODO: Change to token
 export const user = writable(localStorage.getItem('token'));
@@ -105,6 +120,14 @@ export const getProfile = async (userId) => {
     const profile = await resProf.json();
    
     console.log(profile.majors);
+    // TODO optimize this
+    !majors.length ? getMajorInit() : null;
+    !skills.length ? getSkillsInit() : null;
+    console.log(state);
+    while(state < 2) {};
+    console.log(state);
+    console.log(majors);
+    console.log(skills);
     profile.majors = getProfileMajors(profile);
    
     profile.skills = getProfileSkills(profile);
@@ -116,6 +139,7 @@ const getProfileMajors = (prof) => {
     let strMajors = [];
 
     console.log(prof);
+    
     for(let major of prof.majors) {
         console.log(majors[major]);
         try {
@@ -135,7 +159,7 @@ const getProfileSkills = prof => {
     for(let skill of prof.skills) {
         console.log(skills[skill]);
         try {
-            strSkills.push(skills[skill - 1]);
+            strSkills.push(skills[skill]);
         }
         catch(error) {
             console.log(new Error(error));
